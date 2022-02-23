@@ -3,7 +3,7 @@ import AppLoading from "expo-app-loading";
 import{ThemeProvider} from 'styled-components/native';
 import {useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold} from '@expo-google-fonts/poppins';
 import theme from './src/global/styles/theme';
-import {Dashboard} from "./src/Screens/Dashboard/Dashboard";
+import {Register} from "./src/Screens/Register/index";
 export default function App() {
 
     const [fontsLoaded]= useFonts({
@@ -17,7 +17,7 @@ export default function App() {
 
   return (
       <ThemeProvider theme={theme}>
-        <Dashboard></Dashboard>
+        <Register/>
       </ThemeProvider>
   )
 
