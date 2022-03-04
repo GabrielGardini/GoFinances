@@ -36,7 +36,7 @@ export function Register(){
 
     const navigation = useNavigation();
 
-    function handleTransactionsTypeSelect(type:'up' | 'down'){
+    function handleTransactionsTypeSelect(type:'positive' | 'negative'){
         setTransactionType(type);
     }
 
@@ -57,7 +57,7 @@ export function Register(){
             id: String(uuid.v4()),
             name: form.name,
             amount: form.amount,
-            transactionType,
+            type: transactionType,
             category: category.key,
             date: new Date()
         }
@@ -116,8 +116,8 @@ export function Register(){
                         <InputForm error={errors.name && errors.name.message} control={control} name={'name'} autoCapitalize={'sentences'} autoCorrect={false} placeholder={"Nome"}/>
                         <InputForm  error={errors.amount && errors.amount.message} control={control} name={'amount'} keyboardType={'numeric'} placeholder={"Preço"}/>
                         <TransactionsTypes>
-                            <TransactionTypebutton isActive={transactionType === 'up'} onPress={()=>handleTransactionsTypeSelect('up')} type={'up'} title={'Income'} />
-                            <TransactionTypebutton isActive={transactionType === 'down'} onPress={()=>handleTransactionsTypeSelect('down')} type={'down'} title={'Outcome'} />
+                            <TransactionTypebutton isActive={transactionType === 'positive'} onPress={()=>handleTransactionsTypeSelect('positive')} type={'up'} title={'Income'} />
+                            <TransactionTypebutton isActive={transactionType === 'negative'} onPress={()=>handleTransactionsTypeSelect('negative')} type={'down'} title={'Outcome'} />
                         </TransactionsTypes>
 
                         <CategorySelectButton title={category.name} onPress={handleOpenSelectCategoryModal}></CategorySelectButton>
