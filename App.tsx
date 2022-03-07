@@ -10,6 +10,8 @@ import {NavigationContainer} from "@react-navigation/native";
 import {StatusBar} from "react-native";
 import {SignIn} from'./src/Screens/SignIn';
 
+import {AuthProvider} from "./src/hooks/auth";
+
 export default function App() {
 
     const [fontsLoaded]= useFonts({
@@ -25,7 +27,9 @@ export default function App() {
       <ThemeProvider theme={theme}>
           <NavigationContainer>
               <StatusBar barStyle={'light-content'} />
-              <SignIn />
+                <AuthProvider>
+                    <SignIn />
+                </AuthProvider>
           </NavigationContainer>
       </ThemeProvider>
   )
