@@ -13,7 +13,8 @@ export const Container= styled.View`
 
 export const Header = styled.View`
   width:100%;
-  height: ${RFPercentage(42)}px;
+  margin-top: -20px;
+  height: ${RFPercentage(43)}px;
   background-color: ${({theme}) => theme.colors.primary};
   justify-content: center;
   align-items: flex-start;
