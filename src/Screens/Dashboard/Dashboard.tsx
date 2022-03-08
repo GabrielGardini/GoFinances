@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 import {ActivityIndicator} from 'react-native';
 import{useTheme} from 'styled-components';
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 
 export interface DataListProps extends TransactionCardProps{
     id:string;
@@ -133,9 +134,12 @@ export function Dashboard(){
                                     <UserName>Gabriel</UserName>
                                 </User>
                             </UserInfo>
-                            <LogoutButton onPress={()=>{}}>
-                                <Icon name={'power'}/>
-                            </LogoutButton>
+                            <GestureHandlerRootView>
+                                <LogoutButton onPress={()=>{}}>
+                                    <Icon name={'power'}/>
+                                </LogoutButton>
+                            </GestureHandlerRootView>
+
                         </UserWrapper>
                     </Header>
                     <HighlightCards>

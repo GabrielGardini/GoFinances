@@ -59,6 +59,15 @@ function AuthProvider({children}: AuthProviderProps){
                     photo:userInfo.picture
 
                 });
+                const userLoggedIn = {
+                    id: userInfo.id,
+                    email: userInfo.email,
+                    name: userInfo.given_name,
+                    photo: userInfo.picture
+                }
+
+                setUser(userLoggedIn);
+                AsyncStorage.setItem(userStorageKey, JSON.stringify(userLoggedIn));
             }
         }catch (error){
             throw new Error(error);
