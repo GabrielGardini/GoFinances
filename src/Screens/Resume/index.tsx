@@ -14,6 +14,7 @@ import {addMonths, subMonths, format} from 'date-fns';
 import{ptBR} from "date-fns/locale";
 import {useFocusEffect} from "@react-navigation/native";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
+import {useAuth} from "../../hooks/auth";
 
 interface TransactionData{
     type:'positive'|'negative';
@@ -32,9 +33,12 @@ interface CategoryData{
 }
 
 export function Resume(){
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
     const [selectedDate,setSelectedDate]= useState(new Date());
     const theme=useTheme();
+
+    const {user} = useAuth();
+
     function handleDateChange(action:'next'| 'prev'){
         if(action==='next'){
            const newDate= addMonths(selectedDate, 1)
@@ -48,7 +52,7 @@ export function Resume(){
 
     async function loadData(){
         setIsLoading(true);
-        const dataKey='@gofinances:transactions';
+        const dataKey=`@gofinances:transactions_user:${user.id}`;
         const response = await AsyncStorage.getItem(dataKey);
         const responseFormateted = response? JSON.parse(response): [];
 

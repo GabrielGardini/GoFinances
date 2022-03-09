@@ -34,7 +34,13 @@ export function Dashboard(){
     const {signOut, user} = useAuth();
 
     function getLastTransactionDate(collection: DataListProps[], type:'positive' | 'negative'){
-        const lastTransaction = new Date( Math.max.apply(Math, collection.filter(transaction => transaction.type ===type)
+
+        const collectionFiltered = collection.filter(transaction => transaction.type === type);
+
+        if(collectionFiltered.length === 0)
+            return "0";
+
+        const lastTransaction = new Date( Math.max.apply(Math, collectionFiltered
             .map(transaction=> new Date(transaction.date).getTime()) ));
 
         return ` ${lastTransaction.getDate()} de ${lastTransaction.toLocaleString('pt-BR',{month:'long'})}`;
@@ -42,7 +48,7 @@ export function Dashboard(){
 
 
  async function loadTransactions(){
-     const dataKey='@gofinances:transactions';
+     const dataKey=`@gofinances:transactions_user:${user.id}`;
      const response = await AsyncStorage.getItem(dataKey);
 
      const transactions = response ? JSON.parse(response) : [];
@@ -80,7 +86,7 @@ export function Dashboard(){
 
      const lastTransactionEntries= getLastTransactionDate(transactions,'positive');
      const lastTransactionExpenses= getLastTransactionDate(transactions,'negative');
-     const totalInterval=`01 a ${lastTransactionExpenses}`;
+     const totalInterval= lastTransactionExpenses==='0' ? "Não há transações" :`01 a ${lastTransactionExpenses}`;
 
      const total= entriesTotal-expensiveTotal;
 
@@ -90,14 +96,14 @@ export function Dashboard(){
                  style:'currency',
                  currency:'BRL',
              }),
-             lastTransaction:  `Última entrada dia ${lastTransactionEntries}` ,
+             lastTransaction: lastTransactionEntries === '0' ? 'Não há transações' : `Última entrada dia ${lastTransactionEntries}` ,
          },
          expensives:{
              amount:expensiveTotal.toLocaleString('pt-BR',{
                  style:'currency',
                  currency:'BRL',
              }),
-             lastTransaction:`Última saída dia ${lastTransactionExpenses}` ,
+             lastTransaction: lastTransactionExpenses === '0' ? 'Não há transações' : `Última saída dia ${lastTransactionExpenses}` ,
 
          },
          total:{
