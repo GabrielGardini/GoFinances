@@ -22,6 +22,7 @@ export function TransactionCard({data}: Props){
     const [category] = categories.filter(
         item=>item.key===data.category
     );
+
     return(
         <Container>
             <Title>{data.name}</Title>

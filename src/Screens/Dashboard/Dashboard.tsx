@@ -127,6 +127,7 @@ export function Dashboard(){
      loadTransactions();
  },[]));
 
+
     return(
         <Container>
             <ActivityIndicator/>
